@@ -15,7 +15,7 @@ import {
   Telescope,
   Zap,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const TOS_NAV = [
   { name: "Dashboard", icon: LayoutDashboard },
@@ -45,6 +45,31 @@ export function Shell({ children }: { children: React.ReactNode }) {
     isDemo,
   } = usePropDesk();
   const [view, setView] = useState<"prop" | "tos">("prop");
+  const [resetConfirmationOpen, setResetConfirmationOpen] = useState(false);
+  const resetButtonRef = useRef<HTMLButtonElement>(null);
+  const cancelResetRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!resetConfirmationOpen) return;
+
+    cancelResetRef.current?.focus();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setResetConfirmationOpen(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [resetConfirmationOpen]);
+
+  const closeResetConfirmation = () => {
+    setResetConfirmationOpen(false);
+    requestAnimationFrame(() => resetButtonRef.current?.focus());
+  };
+
+  const confirmReset = () => {
+    resetAll();
+    closeResetConfirmation();
+  };
 
   return (
     <div className="min-h-screen bg-[#0b0b0a] text-zinc-100 lg:pl-64">
@@ -158,7 +183,9 @@ export function Shell({ children }: { children: React.ReactNode }) {
               Demo
             </button>
             <button
-              onClick={resetAll}
+              ref={resetButtonRef}
+              type="button"
+              onClick={() => setResetConfirmationOpen(true)}
               className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.03] px-3 text-xs text-zinc-400 hover:text-zinc-100"
               title="Empty setup from scratch"
             >
@@ -230,6 +257,46 @@ export function Shell({ children }: { children: React.ReactNode }) {
         Supervised execution · Midfleet decision engine · No hidden auto-live · Maps to
         TradeAccount + Concierge + Trade Desk in therajushahi/trading-os
       </footer>
+
+      {resetConfirmationOpen && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 p-4">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="reset-confirmation-title"
+            aria-describedby="reset-confirmation-description"
+            className="w-full max-w-md rounded-2xl border border-white/10 bg-[#11110f] p-6 shadow-2xl"
+          >
+            <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-amber-300">
+              Destructive action
+            </p>
+            <h2 id="reset-confirmation-title" className="mt-2 text-lg font-semibold text-zinc-50">
+              Reset this desk?
+            </h2>
+            <p id="reset-confirmation-description" className="mt-2 text-sm leading-relaxed text-zinc-400">
+              This clears your desk setup, challenge, connection, strategy, governance settings,
+              and all trading and journal data. This cannot be undone.
+            </p>
+            <div className="mt-6 flex justify-end gap-3">
+              <button
+                ref={cancelResetRef}
+                type="button"
+                onClick={closeResetConfirmation}
+                className="inline-flex h-10 items-center rounded-xl border border-white/10 px-4 text-sm font-medium text-zinc-300 hover:text-zinc-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={confirmReset}
+                className="inline-flex h-10 items-center rounded-xl bg-red-500 px-4 text-sm font-semibold text-white hover:bg-red-400"
+              >
+                Reset desk
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
