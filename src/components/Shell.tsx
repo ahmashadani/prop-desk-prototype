@@ -54,7 +54,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
     cancelResetRef.current?.focus();
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setResetConfirmationOpen(false);
+      if (event.key === "Escape") closeResetConfirmation();
     };
 
     window.addEventListener("keydown", onKeyDown);
