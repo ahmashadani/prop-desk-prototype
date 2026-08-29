@@ -170,7 +170,10 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
         {view === "prop" && (
           <div className="mx-auto max-w-6xl px-4 pb-3">
-            <div className="flex gap-1.5 overflow-x-auto [scrollbar-width:none]">
+            <nav
+              aria-label="Prop Desk workflow steps"
+              className="flex gap-1.5 overflow-x-auto [scrollbar-width:none]"
+            >
 {STEPS.map((s) => {
               const active = step === s.id;
               const can = unlocked[s.id] || s.id === "setup";
@@ -182,6 +185,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
                 <button
                   key={s.id}
                   disabled={!can}
+                  aria-current={active ? "step" : undefined}
                   onClick={() => can && setStep(s.id as StepId)}
                   className={[
                     "inline-flex h-9 shrink-0 items-center gap-1.5 rounded-lg border px-3 text-xs font-medium transition-colors",
@@ -207,7 +211,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
                 </button>
               );
             })}
-            </div>
+            </nav>
             {challenge && (
               <p className="mt-2 truncate text-xs text-zinc-500">
                 {challenge.label}
