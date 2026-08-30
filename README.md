@@ -18,9 +18,10 @@ Open **http://localhost:3456**
 
 ```bash
 npm ci
-npm run typecheck
-npm run build
+npm run verify
 ```
+
+`npm run verify` runs the type-check followed by the production build.
 
 ## Flow
 

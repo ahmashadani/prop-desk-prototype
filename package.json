@@ -6,6 +6,7 @@
     "dev": "next dev -p 3456",
     "typecheck": "tsc --noEmit",
     "build": "next build",
+    "verify": "npm run typecheck && npm run build",
     "start": "next start -p 3456"
   },
   "dependencies": {
