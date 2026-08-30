@@ -13,8 +13,8 @@ export function ComplianceStrip() {
       : compliance.status === "caution"
         ? "border-amber-500/25 bg-amber-500/10"
         : "border-red-500/25 bg-red-500/10";
-  const profitProgress = Math.min(100, Math.max(0, compliance.profitProgressPct));
-  const profitProgressText = `${pct(profitProgress, 0)} · ${money(compliance.totalPnl)} / ${money(
+  const ariaProfitProgress = Math.min(100, Math.max(0, compliance.profitProgressPct));
+  const profitProgressText = `${pct(compliance.profitProgressPct, 0)} · ${money(compliance.totalPnl)} / ${money(
     compliance.profitTargetUsd,
   )}`;
 
@@ -55,14 +55,14 @@ export function ComplianceStrip() {
           aria-label="Profit target progress"
           aria-valuemax={100}
           aria-valuemin={0}
-          aria-valuenow={profitProgress}
+          aria-valuenow={ariaProfitProgress}
           aria-valuetext={profitProgressText}
           className="h-2 overflow-hidden rounded-full bg-black/40"
           role="progressbar"
         >
           <div
             className="h-full rounded-full bg-zinc-100 transition-all"
-            style={{ width: `${profitProgress}%` }}
+            style={{ width: `${Math.min(100, compliance.profitProgressPct)}%` }}
           />
         </div>
       </div>
