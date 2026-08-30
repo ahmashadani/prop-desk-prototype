@@ -224,12 +224,15 @@ function Toggle({
 }) {
   return (
     <button
+      aria-checked={checked}
       type="button"
       onClick={() => onChange(!checked)}
       className="flex w-full items-center justify-between gap-3 rounded-lg border border-white/10 bg-black/20 px-3 py-2 text-left text-sm"
+      role="switch"
     >
       <span className="text-zinc-300">{label}</span>
       <span
+        aria-hidden="true"
         className={[
           "relative h-5 w-9 rounded-full transition-colors",
           checked ? "bg-emerald-500/80" : "bg-zinc-700",
