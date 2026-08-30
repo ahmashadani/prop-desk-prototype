@@ -160,17 +160,19 @@ export function DeskStep() {
               }}
             >
               <input
+                aria-label="Message Concierge"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about a trade, find setups, rules, strategy, journal…"
                 className="h-10 flex-1 rounded-lg border border-white/10 bg-black/30 px-3 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-zinc-400 focus:outline-none"
               />
               <button
+                aria-label="Send message"
                 type="submit"
                 disabled={agentBusy || !input.trim()}
                 className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-100 text-zinc-950 disabled:opacity-40"
               >
-                <Send className="h-4 w-4" />
+                <Send aria-hidden="true" className="h-4 w-4" />
               </button>
             </form>
           </div>
