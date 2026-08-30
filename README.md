@@ -14,6 +14,14 @@ npm run dev
 
 Open **http://localhost:3456**
 
+## Verify
+
+```bash
+npm ci
+npm run typecheck
+npm run build
+```
+
 ## Flow
 
 1. **Setup** — firm preset, size, phase  
