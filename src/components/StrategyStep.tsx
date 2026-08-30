@@ -67,10 +67,11 @@ export function StrategyStep() {
       </div>
 
       <div className="rounded-xl border border-white/10 bg-[#11110f] p-4 space-y-2">
-        <div className="text-[10px] uppercase tracking-wider text-zinc-500">
+        <label className="text-[10px] uppercase tracking-wider text-zinc-500" htmlFor="custom-strategy">
           Or describe yours
-        </div>
+        </label>
         <textarea
+          id="custom-strategy"
           value={custom}
           onChange={(e) => setCustom(e.target.value)}
           rows={3}
