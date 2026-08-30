@@ -62,9 +62,9 @@ export function VerdictCardView({
         {verdict.checks.map((ch) => (
           <li key={ch.id} className="flex items-center gap-2 text-xs text-zinc-400">
             {ch.pass ? (
-              <Check className="h-3.5 w-3.5 text-emerald-400" />
+              <Check aria-hidden="true" className="h-3.5 w-3.5 text-emerald-400" />
             ) : (
-              <X className="h-3.5 w-3.5 text-red-400" />
+              <X aria-hidden="true" className="h-3.5 w-3.5 text-red-400" />
             )}
             <span>
               {ch.label}
@@ -76,6 +76,7 @@ export function VerdictCardView({
 
       {onOpen && verdict.kind !== "no_trade" && (
         <button
+          type="button"
           onClick={onOpen}
           className="mt-3 inline-flex h-9 items-center rounded-lg bg-zinc-100 px-3 text-xs font-semibold text-zinc-950 hover:bg-zinc-300"
         >
