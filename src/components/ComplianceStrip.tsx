@@ -13,6 +13,10 @@ export function ComplianceStrip() {
       : compliance.status === "caution"
         ? "border-amber-500/25 bg-amber-500/10"
         : "border-red-500/25 bg-red-500/10";
+  const ariaProfitProgress = Math.min(100, Math.max(0, compliance.profitProgressPct));
+  const profitProgressText = `${pct(compliance.profitProgressPct, 0)} · ${money(compliance.totalPnl)} / ${money(
+    compliance.profitTargetUsd,
+  )}`;
 
   return (
     <div className={`rounded-xl border p-4 ${bar}`}>
@@ -45,12 +49,17 @@ export function ComplianceStrip() {
       <div className="mt-3">
         <div className="mb-1 flex justify-between text-[10px] text-zinc-500">
           <span>Profit target</span>
-          <span>
-            {pct(compliance.profitProgressPct, 0)} · {money(compliance.totalPnl)} /{" "}
-            {money(compliance.profitTargetUsd)}
-          </span>
+          <span>{profitProgressText}</span>
         </div>
-        <div className="h-2 overflow-hidden rounded-full bg-black/40">
+        <div
+          aria-label="Profit target progress"
+          aria-valuemax={100}
+          aria-valuemin={0}
+          aria-valuenow={ariaProfitProgress}
+          aria-valuetext={profitProgressText}
+          className="h-2 overflow-hidden rounded-full bg-black/40"
+          role="progressbar"
+        >
           <div
             className="h-full rounded-full bg-zinc-100 transition-all"
             style={{ width: `${Math.min(100, compliance.profitProgressPct)}%` }}
