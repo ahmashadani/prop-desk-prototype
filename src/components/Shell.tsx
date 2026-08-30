@@ -118,6 +118,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
           <div className="flex items-center gap-1 rounded-xl border border-white/10 bg-black/30 p-1">
             <button
+              aria-pressed={view === "prop"}
               type="button"
               onClick={() => setView("prop")}
               className={[
@@ -130,6 +131,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
               Prop Desk
             </button>
             <button
+              aria-pressed={view === "tos"}
               type="button"
               onClick={() => setView("tos")}
               className={[
@@ -180,8 +182,10 @@ export function Shell({ children }: { children: React.ReactNode }) {
                   : null;
               return (
                 <button
+                  aria-current={active ? "step" : undefined}
                   key={s.id}
                   disabled={!can}
+                  type="button"
                   onClick={() => can && setStep(s.id as StepId)}
                   className={[
                     "inline-flex h-9 shrink-0 items-center gap-1.5 rounded-lg border px-3 text-xs font-medium transition-colors",
