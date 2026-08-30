@@ -32,7 +32,9 @@ export function ComplianceStrip() {
               ? ` · day ${compliance.tradingDays}/${challenge.minTradingDays}+`
               : ""}
           </div>
-          <p className="mt-1 text-xs text-zinc-400">{compliance.statusReason}</p>
+          <p aria-live="polite" className="mt-1 text-xs text-zinc-400" role="status">
+            {compliance.statusReason}
+          </p>
         </div>
         <div className="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide">
           <Chip>
