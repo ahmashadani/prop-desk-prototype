@@ -138,6 +138,7 @@ function PositionCard({
   onClose: (r: "win" | "loss" | "be") => void;
 }) {
   const up = p.unrealizedPnlUsd >= 0;
+  const rationaleId = `position-rationale-${p.id}`;
   return (
     <article className="rounded-xl border border-white/10 bg-[#11110f] p-4 space-y-3">
       <div className="flex flex-wrap items-start justify-between gap-2">
@@ -177,7 +178,11 @@ function PositionCard({
         <div className="text-[10px] uppercase tracking-wider text-zinc-500">
           Concierge · why we took this
         </div>
+        <label className="sr-only" htmlFor={rationaleId}>
+          Concierge rationale for {p.symbol} position {p.platformId}
+        </label>
         <textarea
+          id={rationaleId}
           value={p.conciergeWhy}
           onChange={(e) => onWhy(e.target.value)}
           rows={2}
