@@ -79,7 +79,9 @@ export function ActiveStep() {
       </div>
 
       {lastPositionsSyncNote && (
-        <p className="text-xs text-zinc-500">{lastPositionsSyncNote}</p>
+        <p aria-live="polite" className="text-xs text-zinc-500" role="status">
+          {lastPositionsSyncNote}
+        </p>
       )}
 
       {!linked ? (
