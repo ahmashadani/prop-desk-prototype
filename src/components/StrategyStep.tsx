@@ -33,7 +33,9 @@ export function StrategyStep() {
           const on = strategy?.source === "template" && strategy.name === t.name;
           return (
             <button
+              aria-pressed={on}
               key={t.id}
+              type="button"
               onClick={() => setStrategyFromTemplate(t.id)}
               className={[
                 "rounded-xl border p-4 text-left transition-colors",
